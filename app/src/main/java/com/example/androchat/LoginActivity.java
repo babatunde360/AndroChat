@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
                 mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, ChatListActivity.class);
                 startActivity(intent);
             } else {
                 Toast.makeText(this, "Sign in Failed", Toast.LENGTH_SHORT).show();
