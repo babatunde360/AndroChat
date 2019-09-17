@@ -5,4 +5,9 @@
     android:title="@string/chat_list_sign_out"
     app:showAsAction="never"
     />
+    <item
+        android:id="@+id/account_settings"
+        android:title="@string/chat_list_menu_account_settings"
+        app:showAsAction="never"
+        />
 </menu>

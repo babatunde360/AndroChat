@@ -1,4 +1,4 @@
-package com.example.androchat;
+package com.example.androchat.model;
 
 public class Word {
     private String mName;

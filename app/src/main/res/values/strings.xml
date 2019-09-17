@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">AndroChat</string>
     <string name="chat_list_sign_out">Sign Out</string>
+
+    <!-- Firebase Database Nodes -->
+    <string name="dbnode_users">users</string>
+    <string name="dbnode_chatrooms">chatrooms</string>
+    <string name="chat_list_menu_account_settings">Account Settings</string>
 </resources>
