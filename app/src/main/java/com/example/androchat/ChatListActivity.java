@@ -2,7 +2,6 @@ package com.example.androchat;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -36,7 +35,6 @@ public class ChatListActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
     private RecyclerView mRecyclerView;
     private FloatingActionButton fab;
-    private FirebaseAuth.AuthStateListener mAuthState;
 
 
     @Override
@@ -44,41 +42,22 @@ public class ChatListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_list);
         mAuth = FirebaseAuth.getInstance();
-        setupFirebaseAuth();
-        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        currentUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance();
         mFirebaseRef = mDatabase.getReference();
         myUsers = new ArrayList<>();
+        checkSignedInUser();
 
         init();
 
 
     }
 
-    private void setupFirebaseAuth(){
-        Log.d(TAG, "setupFirebaseAuth: started.");
-
-        mAuthState = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-
-
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                    Toast.makeText(ChatListActivity.this, "Signed out", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(ChatListActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-                // ...
-            }
-        };
-
+    private void checkSignedInUser(){
+        if(currentUser == null){
+            startActivity(new Intent(ChatListActivity.this, LoginActivity.class));
+            finish();
+        }
     }
 
     private void init() {
@@ -92,7 +71,7 @@ public class ChatListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ChatListActivity.this,AllUsers.class));
+                startActivity(new Intent(ChatListActivity.this, SearchUserActivity.class));
             }
         });
     }
@@ -109,6 +88,8 @@ public class ChatListActivity extends AppCompatActivity {
             case R.id.sign_out:
                 signOut();
                 return true;
+            case R.id.account_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -126,4 +107,5 @@ public class ChatListActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }

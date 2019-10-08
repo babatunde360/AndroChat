@@ -1,9 +1,17 @@
 <resources>
     <string name="app_name">AndroChat</string>
     <string name="chat_list_sign_out">Sign Out</string>
+    <string name="account_settings">Account Settings</string>
 
     <!-- Firebase Database Nodes -->
     <string name="dbnode_users">users</string>
     <string name="dbnode_chatrooms">chatrooms</string>
     <string name="chat_list_menu_account_settings">Account Settings</string>
+    <string name="all_user_username">Username</string>
+    <string name="profile_image">Profile image</string>
+    <string name="username_logo">username logo</string>
+    <string name="activity_settings_username">Username</string>
+    <string name="activity_settings_submit_button">Submit</string>
+    <string name="search_user">Search User</string>
+    <string name="full_name">Full name goes here</string>
 </resources>

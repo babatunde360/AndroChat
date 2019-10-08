@@ -5,11 +5,18 @@ public class User {
     private String name;
     private String profile_image;
     private String user_id;
+    private String username;
 
     public User(String name, String profile_image, String user_id) {
         this.name = name;
         this.profile_image = profile_image;
         this.user_id = user_id;
+    }
+    public User(String name, String profile_image, String user_id,String username) {
+        this.name = name;
+        this.profile_image = profile_image;
+        this.user_id = user_id;
+        this.username = username;
     }
 
     public User() {
@@ -19,7 +26,7 @@ public class User {
         return user_id;
     }
 
-    public void setUser_id(String user_id) {
+    private void setUser_id(String user_id) {
         this.user_id = user_id;
     }
 
@@ -34,8 +41,14 @@ public class User {
         return profile_image;
     }
 
-    public void setProfile_image(String profile_image) {
+    private void setProfile_image(String profile_image) {
         this.profile_image = profile_image;
+    }
+
+    public void setAllValues(String user_id, String name, String profile_image){
+        setUser_id(user_id);
+        setProfile_image(profile_image);
+        setName(name);
     }
 
     @Override
