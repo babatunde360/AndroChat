@@ -42,6 +42,7 @@ public class SettingsActivity extends AppCompatActivity {
     StorageReference mStorageRef = mStorage.getReference().child("profile_pictures");
     private Uri imageUri;
     private ValueEventListener eventListener;
+    private DatabaseReference mAllUserRef;
 
 
     @Override
@@ -53,16 +54,24 @@ public class SettingsActivity extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance();
 
+        mAllUserRef = mDatabase.getReference().child(getString(R.string.dbnode_all_users));
         mDatabaseRef = mDatabase.getReference().child(getString(R.string.dbnode_users)).child(mAuth.getUid());
         imageRef = mDatabaseRef.child("profile_image");
 
-        EditText userName =  findViewById(R.id.activity_settings_username_et);
+        final EditText userName =  findViewById(R.id.activity_settings_username_et);
         imageView =  findViewById(R.id.activity_settings_iv);
         Button submitButton = findViewById(R.id.activity_settings_submit_btn);
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendProfilePicToDatabase(imageUri);
+                if(imageUri != null) {
+                    sendProfilePicToDatabase(imageUri);
+                }
+                String userNameValue = userName.getText().toString().toLowerCase();
+
+                    mDatabaseRef.child("username").setValue(userNameValue);
+                   // mAllUserRef.child(userNameValue).setValue(mAuth.getUid());
             }
         });
 

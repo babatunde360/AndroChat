@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                 mDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.hasChild(mAuth.getUid())){
+                        if(dataSnapshot.hasChild(mAuth.getUid()) && dataSnapshot.child(mAuth.getUid()).hasChild("username")){
                             Toast.makeText(LoginActivity.this, "Welcome back", Toast.LENGTH_SHORT).show();
                         }else{
                             mDatabaseRef.child(mAuth.getUid()).setValue(newUser);

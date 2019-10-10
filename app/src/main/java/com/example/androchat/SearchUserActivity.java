@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -67,7 +68,7 @@ public class SearchUserActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (!s.toString().isEmpty()) {
                     setAdapter(s.toString());
-                } else {
+                }else {
                     /*
                      * Clear the list when editText is empty
                      * */
@@ -81,7 +82,7 @@ public class SearchUserActivity extends AppCompatActivity {
     }
 
     private void setAdapter(final String searchedString) {
-        databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child(getString(R.string.dbnode_users)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 /*
@@ -100,16 +101,16 @@ public class SearchUserActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String uid = snapshot.getKey();
                     String name = snapshot.child("name").getValue(String.class);
-                    String user_name = snapshot.child("user_name").getValue(String.class);
+                    String user_name = snapshot.child("username").getValue(String.class);
                     String profile_image = snapshot.child("profile_image").getValue(String.class);
 
-                    assert name != null;
+                    //assert name != null;
                     if (name.toLowerCase().contains(searchedString.toLowerCase())) {
                         fullNameList.add(name);
-                        //userNameList.add(user_name);
+                        userNameList.add(user_name);
                         profilePicList.add(profile_image);
                         counter++;
-                    } /*else if (user_name.toLowerCase().contains(searchedString.toLowerCase())) {
+                    } else if (user_name.toLowerCase().contains(searchedString.toLowerCase())) {
                         fullNameList.add(name);
                         userNameList.add(user_name);
                         profilePicList.add(profile_image);
@@ -129,7 +130,7 @@ public class SearchUserActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Toast.makeText(SearchUserActivity.this, "cancelled", Toast.LENGTH_SHORT).show();
             }
         });
     }

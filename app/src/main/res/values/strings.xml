@@ -14,4 +14,5 @@
     <string name="activity_settings_submit_button">Submit</string>
     <string name="search_user">Search User</string>
     <string name="full_name">Full name goes here</string>
+    <string name="dbnode_all_users">all_users</string>
 </resources>
