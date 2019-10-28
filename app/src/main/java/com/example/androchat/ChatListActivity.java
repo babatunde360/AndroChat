@@ -48,7 +48,7 @@ public class ChatListActivity extends AppCompatActivity {
         myUsers = new ArrayList<>();
         checkSignedInUser();
 
-        init();
+        initializeView();
 
 
     }
@@ -60,9 +60,10 @@ public class ChatListActivity extends AppCompatActivity {
         }
     }
 
-    private void init() {
+    private void initializeView() {
         mRecyclerView = findViewById(R.id.main_chat_recyclerView);
-        ChatListAdapter adapter = new ChatListAdapter(myUsers);
+        ChatListAdapter adapter = new ChatListAdapter(myUsers,this
+        );
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(layoutManager);

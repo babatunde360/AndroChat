@@ -15,4 +15,6 @@
     <string name="search_user">Search User</string>
     <string name="full_name">Full name goes here</string>
     <string name="dbnode_all_users">all_users</string>
+    <string name="title_activity_chat">ChatActivity</string>
+    <string name="db_messages_node">messages</string>
 </resources>
