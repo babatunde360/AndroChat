@@ -31,6 +31,7 @@ public class SearchUserActivity extends AppCompatActivity {
     ArrayList<String> fullNameList;
     ArrayList<String> userNameList;
     ArrayList<String> profilePicList;
+    ArrayList<String> userId;
     SearchAdapter searchAdapter;
 
     @Override
@@ -54,6 +55,7 @@ public class SearchUserActivity extends AppCompatActivity {
         fullNameList = new ArrayList<>();
         userNameList = new ArrayList<>();
         profilePicList = new ArrayList<>();
+        userId = new ArrayList<>();
 
         search_edit_text.addTextChangedListener(new TextWatcher() {
             @Override
@@ -75,6 +77,7 @@ public class SearchUserActivity extends AppCompatActivity {
                     fullNameList.clear();
                     userNameList.clear();
                     profilePicList.clear();
+                    userId.clear();
                     recyclerView.removeAllViews();
                 }
             }
@@ -99,7 +102,7 @@ public class SearchUserActivity extends AppCompatActivity {
                  * Search all users for matching searched string
                  * */
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String uid = snapshot.getKey();
+                    String uId = snapshot.getKey();
                     String name = snapshot.child("name").getValue(String.class);
                     String user_name = snapshot.child("username").getValue(String.class);
                     String profile_image = snapshot.child("profile_image").getValue(String.class);
@@ -109,11 +112,13 @@ public class SearchUserActivity extends AppCompatActivity {
                         fullNameList.add(name);
                         userNameList.add(user_name);
                         profilePicList.add(profile_image);
+                        userId.add(uId);
                         counter++;
                     } else if (user_name.toLowerCase().contains(searchedString.toLowerCase())) {
                         fullNameList.add(name);
                         userNameList.add(user_name);
                         profilePicList.add(profile_image);
+                        userId.add(uId);
                         counter++;
                     }
 
@@ -124,7 +129,8 @@ public class SearchUserActivity extends AppCompatActivity {
                         break;
                 }
 
-                searchAdapter = new SearchAdapter(SearchUserActivity.this, fullNameList, userNameList, profilePicList);
+                searchAdapter = new SearchAdapter(SearchUserActivity.this,
+                        fullNameList, userNameList, profilePicList,userId);
                 recyclerView.setAdapter(searchAdapter);
             }
 
