@@ -61,6 +61,11 @@ public class ChatMessage {
         this.timestamp = timestamp;
     }
 
+    public void setDbMessage(String message,String user_id){
+        this.message = message;
+        this.user_id = user_id;
+    }
+
     @Override
     public String toString() {
         return "ChatMessage{" +

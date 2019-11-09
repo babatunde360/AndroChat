@@ -22,6 +22,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     private ArrayList<String> fullNameList;
     private ArrayList<String> userNameList;
     private ArrayList<String> profilePicList;
+    private ArrayList<String> userId;
 
     class SearchViewHolder extends RecyclerView.ViewHolder {
         ImageView profileImage;
@@ -35,11 +36,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         }
     }
 
-    public SearchAdapter(Context context, ArrayList<String> fullNameList, ArrayList<String> userNameList, ArrayList<String> profilePicList) {
+    public SearchAdapter(Context context, ArrayList<String> fullNameList,
+                         ArrayList<String> userNameList, ArrayList<String> profilePicList,
+                         ArrayList<String> userId) {
         this.context = context;
         this.fullNameList = fullNameList;
         this.userNameList = userNameList;
         this.profilePicList = profilePicList;
+        this.userId = userId;
     }
 
     @Override
@@ -53,6 +57,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         final String fullName = fullNameList.get(position);
         final String userName = userNameList.get(position);
         final String profilePic = profilePicList.get(position);
+        final String uId = userId.get(position);
 
         holder.full_name.setText(fullName);
         holder.user_name.setText(userName);
@@ -65,6 +70,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                 intent.putExtra(ProfileActivity.EXTRA_FULL_NAME,fullName);
                 intent.putExtra(ProfileActivity.EXTRA_USERNAME,userName);
                 intent.putExtra(ProfileActivity.EXTRA_PROFILE_PIC,profilePic);
+                intent.putExtra(ProfileActivity.EXTRA_USER_ID,uId);
 
                 context.startActivity(intent);
 
