@@ -12,7 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.androchat.R;
 import com.example.androchat.model.ChatMessage;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
@@ -88,7 +93,8 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
         void bind(ChatMessage message){
             messageSent.setText(message.getMessage());
-            messageTime.setText(message.getTimestamp());
+            long currentTime = message.getCurrentTime();
+            messageTime.setText(convertTime(currentTime));
         }
     }
     private class ReceivedMessageHolder extends RecyclerView.ViewHolder{
@@ -103,8 +109,15 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
         void bind(ChatMessage message){
             messageReceived.setText(message.getMessage());
-            messageReceivedTime.setText(message.getTimestamp());
+            long currentTime = message.getCurrentTime();
+            messageReceivedTime.setText(convertTime(currentTime));
         }
+    }
+
+    private String convertTime(long milliseconds){
+        DateFormat formatter = new SimpleDateFormat("hh:mm a", Locale.US);
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return formatter.format(new Date(milliseconds));
     }
 
 }

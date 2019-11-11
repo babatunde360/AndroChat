@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -33,7 +35,15 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         populateDataWithIntentExtra();
 
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = auth.getCurrentUser();
+
         sendMessageBtn = findViewById(R.id.profile_activity_send_message_btn);
+
+        assert currentUser != null;
+        if(mUserId_extra.equals(currentUser.getUid())){
+            sendMessageBtn.setVisibility(View.INVISIBLE);
+        }
 
         sendMessageBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -17,4 +17,6 @@
     <string name="dbnode_all_users">all_users</string>
     <string name="title_activity_chat">ChatActivity</string>
     <string name="db_messages_node">messages</string>
+    <string name="send">SEND</string>
+    <string name="enter_message">Enter message</string>
 </resources>

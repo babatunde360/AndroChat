@@ -5,16 +5,20 @@ public class ChatMessage {
 
     private String message;
     private String user_id;
-    private String timestamp;
     private String profile_image;
     private String name;
+    private long currentTime;
 
-    public ChatMessage(String message, String user_id, String timestamp, String profile_image, String name) {
+    public ChatMessage(String message, String user_id, long currentTime, String profile_image, String name) {
         this.message = message;
         this.user_id = user_id;
-        this.timestamp = timestamp;
+        this.currentTime = currentTime;
         this.profile_image = profile_image;
         this.name = name;
+    }
+    public ChatMessage(String message,long currentTime,String user_id){
+        this.message = message;
+        this.user_id = user_id;
     }
 
     public ChatMessage() {
@@ -53,17 +57,18 @@ public class ChatMessage {
         this.user_id = user_id;
     }
 
-    public String getTimestamp() {
-        return timestamp;
+    public long getCurrentTime() {
+        return currentTime;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setCurrentTime(long currentTime) {
+        this.currentTime = currentTime;
     }
 
-    public void setDbMessage(String message,String user_id){
+    public void setDbMessage(String message, long currentTime, String user_id){
         this.message = message;
         this.user_id = user_id;
+        this.currentTime = currentTime;
     }
 
     @Override
@@ -71,7 +76,7 @@ public class ChatMessage {
         return "ChatMessage{" +
                 "message='" + message + '\'' +
                 ", user_id='" + user_id + '\'' +
-                ", timestamp='" + timestamp + '\'' +
+                ", currentTime='" + currentTime + '\'' +
                 ", profile_image='" + profile_image + '\'' +
                 ", name='" + name + '\'' +
                 '}';
