@@ -12,18 +12,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androchat.ChatActivity;
 import com.example.androchat.R;
-import com.example.androchat.model.User;
 
 import java.util.ArrayList;
 
-public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatListViewHolder>
-        implements View.OnClickListener{
-private ArrayList<User> mUser;
+public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatListViewHolder> {
+private ArrayList<String> mUserName;
+private ArrayList<String> mName;
+private ArrayList<String> mProfile_Url;
+private ArrayList<String> mUserId;
 private Context mContext;
+String userIdString;
 
-public ChatListAdapter(ArrayList<User> user, Context context){
-    mUser = user;
+public ChatListAdapter(Context context, ArrayList<String> userName, ArrayList<String> name, ArrayList<String> profile_url, ArrayList<String> userId){
     mContext = context;
+    mUserName = userName;
+    mName = name;
+    mProfile_Url = profile_url;
+    mUserId = userId;
+
 }
     @NonNull
     @Override
@@ -35,29 +41,31 @@ public ChatListAdapter(ArrayList<User> user, Context context){
 
     @Override
     public void onBindViewHolder(@NonNull ChatListViewHolder holder, int position) {
-        User user = mUser.get(position);
-        holder.userName.setText(user.getName());
-        holder.lastMessage.setText(user.getUser_id());
+        holder.userName.setText(mName.get(position));
+        holder.lastMessage.setText(mUserName.get(position));
+        userIdString = mUserId.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return mUser.size();
-    }
-
-    @Override
-    public void onClick(View v) {
-        Intent chatIntent = new Intent(mContext, ChatActivity.class);
-        mContext.startActivity(chatIntent);
+        return mName.size();
     }
 
     class ChatListViewHolder extends RecyclerView.ViewHolder{
         TextView userName;
         TextView lastMessage;
-       public ChatListViewHolder(@NonNull View itemView) {
+       ChatListViewHolder(@NonNull View itemView) {
            super(itemView);
+           itemView.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   Intent chatIntent = new Intent(mContext, ChatActivity.class);
+                   chatIntent.putExtra(ChatActivity.EXTRA_OTHER_USER_ID,userIdString);
+                   mContext.startActivity(chatIntent);
+               }
+           });
            userName = itemView.findViewById(R.id.item_view_name_tv);
            lastMessage = itemView.findViewById(R.id.item_view_last_message_tv);
        }
-   }
+    }
 }

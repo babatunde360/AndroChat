@@ -50,6 +50,11 @@ public class User {
         setProfile_image(profile_image);
         setName(name);
     }
+    public void setNUPValues(String name,String username, String profile_image){
+        setUsername(username);
+        setName(name);
+        setProfile_image(profile_image);
+    }
 
     @Override
     public String toString() {
@@ -58,5 +63,13 @@ public class User {
                 ", profile_image='" + profile_image + '\'' +
                 ", user_id='" + user_id + '\'' +
                 '}';
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    private void setUsername(String username) {
+        this.username = username;
     }
 }
